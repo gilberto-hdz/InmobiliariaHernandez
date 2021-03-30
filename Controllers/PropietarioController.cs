@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using InmobiliariaHernandez.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,22 +10,28 @@ namespace InmobiliariaHernandez.Controllers
 {
     public class PropietarioController : Controller
     {
+        private PropietarioRepositorio propietarioRespositorio;
+
         // Var para el PropietarioRepositorio
+
+
         public PropietarioController()
         {
-
+            propietarioRespositorio = new PropietarioRepositorio();
         }
 
         // GET: PropietarioController
         public ActionResult Index()
         {
-            return View();
+            var listaPropietarios = propietarioRespositorio.ObtenerTodos();
+            return View(listaPropietarios);
         }
 
         // GET: PropietarioController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Propietario propietario = propietarioRespositorio.BuscarPropietario(id);
+            return View(propietario);
         }
 
         // GET: PropietarioController/Create
