@@ -43,58 +43,43 @@ namespace InmobiliariaHernandez.Controllers
         // POST: PropietarioController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Propietario propietario)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            propietarioRespositorio.Alta(propietario);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: PropietarioController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Propietario propietario = propietarioRespositorio.BuscarPropietario(id);
+            return View(propietario);
         }
 
         // POST: PropietarioController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Propietario propietario)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            propietarioRespositorio.Modificacion(propietario);
+            return RedirectToAction(nameof(Index));
+            
         }
 
         // GET: PropietarioController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Propietario propietario = propietarioRespositorio.BuscarPropietario(id);
+            return View(propietario);
         }
 
         // POST: PropietarioController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Propietario propietario)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            propietarioRespositorio.Baja(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

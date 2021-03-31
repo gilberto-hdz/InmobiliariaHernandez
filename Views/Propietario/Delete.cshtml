@@ -1,11 +1,12 @@
 ﻿@model InmobiliariaHernandez.Models.Propietario
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
 
-<h1>Detalles</h1>
+<h1>Eliminar</h1>
 
+<h3>Estas seguro que deseas eliminar esto?</h3>
 <div>
     <h4>Propietario</h4>
     <hr />
@@ -41,8 +42,9 @@
             @Html.DisplayFor(model => model.Direccion)
         </dd>
     </dl>
-</div>
-<div>
-    @Html.ActionLink("Editar", "Edit", new {  id = Model.Id  }) |
-    <a asp-action="Index">Volver a la lista</a>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index">Vovler a la lista</a>
+    </form>
 </div>

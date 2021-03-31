@@ -78,5 +78,72 @@ namespace InmobiliariaHernandez.Models
             }
             return propietario;
         }
+
+        public int Alta(Propietario propietario)
+        {
+            int resultado = -1;
+            using (SqlConnection connection = new SqlConnection(stringConnection))
+            {
+                string sql = "INSERT INTO Propietarios (Nombre, Apellido, Dni, Direccion) " +
+                    "VALUES (@nombre, @apellido, @dni, @direccion);" +
+                    "SELECT SCOPE_IDENTITY();";
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@nombre", propietario.Nombre);
+                    command.Parameters.AddWithValue("@apellido", propietario.Apellido);
+                    command.Parameters.AddWithValue("@dni", propietario.Dni);
+                    command.Parameters.AddWithValue("@direccion", propietario.Direccion);
+                    connection.Open();
+                    resultado = Convert.ToInt32(command.ExecuteScalar());
+                    propietario.Id = resultado;
+                    connection.Close();
+                }
+            }
+            return resultado;
+        }
+
+        public int Baja(int id)
+        {
+            int resultado = -1;
+            using(SqlConnection connection = new SqlConnection(stringConnection))
+            {
+                string sql = "DELETE FROM Propietarios " +
+                    "WHERE Id = @id;";
+                using(SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@id", id);
+                    connection.Open();
+                    resultado = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            return resultado;
+        }
+
+        public int Modificacion(Propietario propietario)
+        {
+            int resultado = -1;
+            using(SqlConnection connection = new SqlConnection(stringConnection))
+            {
+                string sql = "UPDATE Propietarios " +
+                    "SET Nombre = @nombre, Dni = @dni, Apellido = @apellido, Direccion = @direccion " +
+                    "WHERE Id = @id;";
+                using(SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@nombre", propietario.Nombre);
+                    command.Parameters.AddWithValue("@dni", propietario.Dni);
+                    command.Parameters.AddWithValue("@apellido", propietario.Apellido);
+                    command.Parameters.AddWithValue("@direccion", propietario.Direccion);
+                    command.Parameters.AddWithValue("@id", propietario.Id);
+                    connection.Open();
+                    resultado = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            return resultado;
+        }
     }
 }
