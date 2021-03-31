@@ -12,8 +12,6 @@ namespace InmobiliariaHernandez.Controllers
     {
         private PropietarioRepositorio propietarioRespositorio;
 
-        // Var para el PropietarioRepositorio
-
 
         public PropietarioController()
         {
