@@ -96,9 +96,6 @@ namespace InmobiliariaHernandez.Models
             int resultado = -1;
             using (SqlConnection connection = new SqlConnection(stringConnection))
             {
-                string sqlo = "SELECT Id, Dni, Apellido, Nombre, DireccionTrabajo, Telefono, Email, DniGarante, NombreGarante, ApellidoGarante, TelGarante " +
-                    "FROM Inquilinos " +
-                    "WHERE Id = @id;";
                 string sql = "INSERT INTO Inquilinos (Dni, Apellido, Nombre, DireccionTrabajo, Telefono, Email, DniGarante, NombreGarante, ApellidoGarante, TelGarante) " +
                     "VALUES (@dni, @apellido, @nombre, @direccionTrabajo, @telefono, @email, @dniGarante, @nombreGarante, @apellidoGarante, @telGarante);" +
                     "SELECT SCOPE_IDENTITY();";
