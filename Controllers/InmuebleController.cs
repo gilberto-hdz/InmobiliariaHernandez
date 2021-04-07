@@ -63,42 +63,47 @@ namespace InmobiliariaHernandez.Controllers
         // GET: InmuebleController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewData["Propietarios"] = propietarioRepositorio.ObtenerTodos();
+            Inmueble inmueble = inmuebleRepositorio.ObtenerInmueble(id);
+            return View(inmueble);
         }
 
         // POST: InmuebleController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Inmueble inmueble)
         {
             try
             {
+                inmuebleRepositorio.Modificar(inmueble);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(inmueble);
             }
         }
 
         // GET: InmuebleController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Inmueble inmueble = inmuebleRepositorio.ObtenerInmueble(id);
+            return View(inmueble);
         }
 
         // POST: InmuebleController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Inmueble inmueble)
         {
             try
             {
+                inmuebleRepositorio.Baja(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(inmueble);
             }
         }
     }
