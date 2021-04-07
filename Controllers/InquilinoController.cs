@@ -1,6 +1,7 @@
 ﻿using InmobiliariaHernandez.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,13 @@ namespace InmobiliariaHernandez.Controllers
 {
     public class InquilinoController : Controller
     {
+        private readonly IConfiguration configuration;
         private InquilinoRepositorio inquilinoRepositorio;
 
-        public InquilinoController()
+        public InquilinoController(IConfiguration configuration)
         {
-            inquilinoRepositorio = new InquilinoRepositorio();
+            this.configuration = configuration;
+            inquilinoRepositorio = new InquilinoRepositorio(configuration);
         }
 
         // GET: InquilinoController

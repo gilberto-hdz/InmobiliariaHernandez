@@ -10,11 +10,13 @@ namespace InmobiliariaHernandez.Models
 {
     public class PropietarioRepositorio
     {
+        private readonly IConfiguration configuration;
         private readonly string stringConnection;
 
-        public PropietarioRepositorio()
+        public PropietarioRepositorio(IConfiguration configuration)
         {
-            stringConnection = "Server=(localdb)\\MSSQLLocalDB;Database=InmobiliariaHernandez;Trusted_Connection=True;MultipleActiveResultSets=true";
+            this.configuration = configuration;
+            stringConnection = configuration["ConnectionStrings:DefaultConnection"];
         }
 
         public List<Propietario> ObtenerTodos()

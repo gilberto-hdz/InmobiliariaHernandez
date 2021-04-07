@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,11 +10,13 @@ namespace InmobiliariaHernandez.Models
 {
     public class InquilinoRepositorio
     {
+        private readonly IConfiguration configuration;
         private readonly string stringConnection;
 
-        public InquilinoRepositorio()
+        public InquilinoRepositorio(IConfiguration configuration)
         {
-            stringConnection = "Server=(localdb)\\MSSQLLocalDB;Database=InmobiliariaHernandez;Trusted_Connection=True;MultipleActiveResultSets=true";
+            this.configuration = configuration;
+            stringConnection = configuration["ConnectionStrings:DefaultConnection"];
         }
 
         public List<Inquilino> ObtenerTodos()
